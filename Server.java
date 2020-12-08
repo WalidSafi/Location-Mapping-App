@@ -13,6 +13,7 @@ import java.time.*;
 
 public class Server {
 
+    // Creating Global Variables for all threads to share
     public static ArrayList<String> clientdata = new ArrayList<String>();
     public static ArrayList<String> locations = new ArrayList<String>();
     public static int counter = 0;
@@ -22,10 +23,11 @@ public class Server {
         Semaphore sem = new Semaphore(1);
 
         try {
-
+            
+            // Creates server Socket
             ServerSocket s = new ServerSocket(5556);
 
-            while (true) {
+            while (true) { // Continously accepts clients and creates a thread for each client
                 Socket socket = s.accept();
                 Handler sc = new Handler(socket);
                 new Thread(sc).start();
@@ -83,17 +85,17 @@ public class Server {
 
     }
 
-    public static void addClientData(ArrayList<String> client){
+    public static void addClientData(ArrayList<String> client){ // Function to add data
 
         String name = null;
         name = clientdata.get(2);
 
-        if(name.equals("")){
+        if(name.equals("")){ // If name field is empty, return no data to client
             System.out.println("No name Detected");
             return;
         }
 
-        if (locations.contains(name)){
+        if (locations.contains(name)){ // If name exists, update co-ordinates
             System.out.println(name + " already exists in the list");
 
             int index = locations.indexOf(name);
@@ -103,7 +105,7 @@ public class Server {
             locations.set((index - 1), client.get(1));
             System.out.println("Near Co-ordinates " + locations + "\n");
 
-        } else {
+        } else { // Add new location
             locations.add(client.get(0));
             locations.add(client.get(1));
             locations.add(client.get(2));
@@ -112,7 +114,7 @@ public class Server {
         }
     }
 
-    class clientdatathread extends Thread{
+    class clientdatathread extends Thread{ // Semaphore class
         Semaphore sem;
         String clientthread;
         public clientdatathread(Semaphore sem, String clientthread){
@@ -122,16 +124,19 @@ public class Server {
         }
     }
 
-    public static void serverLog(String name){
+    public static void serverLog(String name){ // Logs Client and Server interaction
 
         try{
+            // Gets time stamp
             ZonedDateTime s = ZonedDateTime.now();
-
+            
+            // Creates file object, and filewrite
             File logfile = new File("log.txt");
             logfile.createNewFile();
 
             FileWriter logwrite = new FileWriter("log.txt", true); // Allowing to append to file
-
+            
+            // Appends to log file
             logwrite.write(name + " Has Been Added to the Server Data at Date Time: " + s + "\n");
 
             logwrite.close();
