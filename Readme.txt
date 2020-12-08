@@ -1,10 +1,11 @@
 1. Go to Github Link https://github.com/WalidSafi/MappingTestFinal 
 2. Download, or Fork project
-3. Import project with android studio
-4. Server.Java file is MappingTestFinal
-5. Run Server.Java on cmd line by using Java Server.java
-6. Run an android emulator ( API VERSION 26+)
-7. Run program on the emulator
+3. Optional ( Remove Local submission files (Report, Slides, Test cases from directory)
+4. Import project with android studio
+5. Server.Java file is MappingTestFinal
+6. Run Server.Java on cmd line by using Java Server.java
+7. Run an android emulator ( API VERSION 26+)
+8. Run program on the emulator
 
 
 
