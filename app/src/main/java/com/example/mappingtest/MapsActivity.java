@@ -38,7 +38,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
 
     // Arraylists to hold information (We can change some of these to an SQLitedatabase if needed
-    // The serverResponse can be saved to an database , this will include names list aswell
     ArrayList<LatLng> markerLocations = new ArrayList<LatLng>();
     ArrayList<String> variables = new ArrayList<String>();
     ArrayList<String> names = new ArrayList<String>();
@@ -72,8 +71,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         System.out.println(longit + " : " + lat);
 
         // Clients variables to send to the sever, Changed this when testing with different emulators for testing
-        // Basically implement getting the devices location here, probably using the API if possible, or another method
-        // Using the EditText view we can get the name (Time stamp we can add on server side only if needed)
         variables.add(lat);
         variables.add(longit);
         variables.add(" ");
@@ -206,7 +203,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 oos.writeObject(variables);
 
                 // Read the server response of all the known locations from past clients
-                // We could most likely time stamp the markers just adding a date class and adding it to the names part of the marker
+                
                 Object list = inp.readObject();
                 // Save the list to the global variable, and the device is ready to press refresh to get locations of the other clients
                 serverResponse = (ArrayList<String>) list;
