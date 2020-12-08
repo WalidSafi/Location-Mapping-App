@@ -1,1 +1,30 @@
 https://www.youtube.com/watch?v=z54qndXYfWk&feature=youtu.be&fbclid=IwAR2L3B_QL6ai7mTT4vw6BPvlGubCI4M68ViOcw7eYFk_4N5VWu94kooOYhs&ab_channel=WalidSafi
+
+TEST CASES
+
+Test-Case-ID: 1
+Description: Server to receive client data
+Expected Result: Server prints current client data 
+Actual Result: Server printed client data
+
+Test-Case-ID: 2
+Description: Server adds Client data and sends locations list to client
+Expected Result: Server prints locations list in console and sends to client
+Actual Result: Client received locations list
+
+
+Test-Case-ID: 3
+Description: Shut down Server
+Expected Result: Client uses locally stored data and does not crash
+Actual Result: Does not crash, and does not receive response from sever
+
+
+Test-Case-ID: 4
+Description: Server becomes active while clients are running
+Expected Result: Server re-populates database with client requests 
+Actual Result: Client update location and receive updated location back
+
+Test-Case-ID: 5
+Description: Client disconnects/phone turns off
+Expected Result: Server prints current locations, and saves last update from said client
+Actual Result: Server printed client data
