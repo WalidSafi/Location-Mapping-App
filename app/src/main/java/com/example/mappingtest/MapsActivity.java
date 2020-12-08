@@ -13,6 +13,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import java.net.*;
@@ -64,6 +65,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, (LocationListener) this);
         loc = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+
         String lat = String.valueOf(loc.getLatitude());
         String longit = String.valueOf(loc.getLongitude());
         System.out.println(longit + " : " + lat);
@@ -73,7 +76,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Using the EditText view we can get the name (Time stamp we can add on server side only if needed)
         variables.add(lat);
         variables.add(longit);
-        variables.add("yetst33111");
+        variables.add(" ");
 
 
         //variables.add("49.13455");
@@ -113,12 +116,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Loops through the server response list and creates a marker object
         for (int i = 0; i < serverResponse.size(); i = i + 3) {
-
-
             latHolder = serverResponse.get(i);
             longHolder = serverResponse.get(i+1);
             names.add(serverResponse.get(i+2));
-
             double lt = Double.parseDouble(latHolder);
             double lg = Double.parseDouble(longHolder);
             LatLng marker = new LatLng(lt, lg);
@@ -160,6 +160,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         variables.set(0,lat);
         variables.set(1, longit);
 
+        EditText n = (EditText) findViewById(R.id.editName);
+        String nme = n.getText().toString();
+
+        System.out.println(nme);
+        variables.set(2,nme);
+
         LocationHelper helper = new LocationHelper(
                 location.getLongitude(),
                 location.getLatitude()
@@ -181,7 +187,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     // The thread for getting input,
-    // I dont think we could get a connection on the oncreate so i had to watch a youtube video
     class connServerThread implements Runnable
     {
 
@@ -228,7 +233,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 try {
                     Thread conThread = new Thread(new connServerThread());
                     conThread.start();
-                    TimeUnit.SECONDS.sleep(10);
+                    TimeUnit.SECONDS.sleep(1);
                     System.out.println("Slept for 10 seconds");
                 } catch (InterruptedException e) {
                     e.printStackTrace();
